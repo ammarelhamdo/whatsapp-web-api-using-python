@@ -57,7 +57,7 @@ def request_new_messages():
         try:
                 # store the URL in url as 
                 # parameter for urlopen
-                req = urllib.request.Request('https://salepoint.alabuo-tr.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
+                req = urllib.request.Request('https://YOUR-DOMAIN.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
                 # store the response of URL
                 page = urllib.request.urlopen(req)
                   
