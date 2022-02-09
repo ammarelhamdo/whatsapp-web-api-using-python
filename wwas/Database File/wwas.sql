@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 08, 2022 at 05:16 AM
+-- Generation Time: Feb 09, 2022 at 07:02 AM
 -- Server version: 5.6.41-84.1
 -- PHP Version: 7.3.32
 
@@ -30,17 +30,17 @@ DELIMITER $$
 -- Procedures
 --
 DROP PROCEDURE IF EXISTS `createRequestMessage`$$
-CREATE PROCEDURE `createRequestMessage` (IN `p1` BIGINT, IN `p2` TEXT, IN `p3` TEXT)  NO SQL
+CREATE PROCEDURE `createRequestMessage` (IN `p1` BIGINT, IN `p2` TEXT, IN `p3` TEXT, IN `p4` ENUM('MESSAGE','FILE','IMAGE'))  NO SQL
     DETERMINISTIC
 BEGIN
-	INSERT INTO `msgs` (`userID`, `phone`, `message`) VALUES (p1, p2, p3);
+	INSERT INTO `msgs` (`userID`, `phone`, `message`, `type`) VALUES (p1, p2, p3, p4);
 END$$
 
 DROP PROCEDURE IF EXISTS `requestMessages`$$
 CREATE PROCEDURE `requestMessages` (IN `p1` BIGINT)  NO SQL
     DETERMINISTIC
 BEGIN
-	SELECT `phone`, `message` FROM `msgs` WHERE `userID` = p1 AND `status` = 'WAITING';
+	SELECT `phone`, `message`, `type` FROM `msgs` WHERE `userID` = p1 AND `status` = 'WAITING';
     UPDATE `msgs` SET `status` = 'DONE' WHERE `userID` = p1;
 END$$
 
@@ -58,17 +58,20 @@ CREATE TABLE IF NOT EXISTS `msgs` (
   `userID` bigint(20) NOT NULL,
   `phone` text COLLATE utf8_unicode_ci NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` enum('MESSAGE','FILE','IMAGE') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'MESSAGE',
   `status` enum('WAITING','DONE') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'WAITING',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='This table will store messages.';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='This table will store messages.';
 
 --
 -- Dumping data for table `msgs`
 --
 
-INSERT INTO `msgs` (`id`, `userID`, `phone`, `message`, `status`, `created`) VALUES
-(1, 1, '123', 'Hello, this is test message from wwas.', 'DONE', '2022-02-08 10:43:34');
+INSERT INTO `msgs` (`id`, `userID`, `phone`, `message`, `type`, `status`, `created`) VALUES
+(1, 1, '445123456789', 'This is a test message.', 'MESSAGE', 'DONE', '2022-02-08 12:41:15'),
+(2, 1, '445123456789', 'http://www.africau.edu/images/default/sample.pdf', 'FILE', 'DONE', '2022-02-08 12:43:27'),
+(3, 1, '445123456789', 'https://i.pinimg.com/564x/63/f7/e9/63f7e99d2bdb21c005ce2debca4c3a9e.jpg', 'IMAGE', 'DONE', '2022-02-09 08:33:01');
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
