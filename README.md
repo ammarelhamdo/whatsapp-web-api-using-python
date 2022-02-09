@@ -1,5 +1,5 @@
 # Whatsapp Web API using python
-Send Whatsapp Messages, Images, Files using python API
+Send Whatsapp `Messages`, `Images`, `Files` using python API
 
 This is very simple and need work :)
 
