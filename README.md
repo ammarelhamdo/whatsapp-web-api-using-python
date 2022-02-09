@@ -1,7 +1,7 @@
 # Whatsapp Web API using python
 Send Whatsapp `Messages`, `Images`, `Files` using python API
 
-This is very simple and need work :)
+This is very simple script and need a bit work :)
 
 1) Move `api` file to your hosting, and database file to your hosting and change database information in `db.php` file.
 2) Install Selenium in your python : `pip install selenium`
