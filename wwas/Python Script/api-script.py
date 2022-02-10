@@ -15,6 +15,8 @@
         2) sudo apt-get install chromium-browser             -- (We need to know location install ex: '/usr/local/bin/chromedriver')
         3) install database file on hosting server.          -- (After install this database file, you must change DatabaseUsername, DatabasePassword)
         4) install api, db files on hosting server.          -- (We need domain name to set it in this script.)
+
+        All copyrights for ALABUO GROUP CO. LTD.
 '''
 import requests
 import os, sys, select
@@ -67,7 +69,7 @@ class WWAS:
                 try:
                         # store the URL in url as 
                         # parameter for urlopen
-                        req = urllib.request.Request('https://DOMAIN.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
+                        req = urllib.request.Request('https://salepoint.alabuo-tr.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
                         # store the response of URL
                         page = urllib.request.urlopen(req)
                         
@@ -128,6 +130,7 @@ class WWAS:
         def send_file(self, phone, message):
                 # Donwload file form internet.
                 pathFile = self.downloadFile(message)
+                
                 # Open Contact To Send File
                 if pathFile != "" and self.open_chat('https://web.whatsapp.com/send?phone={}'.format(phone)):
                         # Find Button send attachment.
@@ -141,11 +144,23 @@ class WWAS:
                         self.send_attachment()
                 else:
                         print ("Message Not Sent, Some error happens because can not open concat chat, or file not downloaded from internet.")
+                
+                # After download file and send, we don't need to keep in our device, then delete it.
+                try:
+                        print ("Deleting file downloaded...")
+                        if pathFile != "":
+                                os.remove(pathFile)
+                        else:
+                                print ("No file path available to delete.")
+                        print ("Deleted file successfully.")
+                except Exception as e:
+                        print ("Can not delete downloaded file. ISSIUS: {}".format(e))
                 return
 
         def send_image(self, phone, message):
                 # Donwload image form internet.
                 pathFile = self.downloadFile(message)
+                
                 # Open Contact To Send Image
                 if pathFile != "" and self.open_chat('https://web.whatsapp.com/send?phone={}'.format(phone)):
                         # Find Button send image.
@@ -159,6 +174,18 @@ class WWAS:
                         self.send_attachment()
                 else:
                         print ("Message Not Sent, Some error happens because can not open concat chat, or file not downloaded from internet.")
+                
+                # After download image and send, we don't need to keep in our device, then delete it.
+                try:
+                        print ("Deleting image downloaded...")
+                        if pathFile != "":
+                                os.remove(pathFile)
+                        else:
+                                print ("No image path available to delete.")
+                        print ("Deleted image successfully.")
+                except Exception as e:
+                        print ("Can not delete downloaded image. ISSIUS: {}".format(e))
+
                 return
 
         def start_chrome(self):
@@ -201,7 +228,7 @@ class WWAS:
                 self.clear_screen()
                 print ('-----------------------------------------------------------------')
                 print ('-----------------< Whatsapp Web Api System(WWAS) >---------------')
-                print ('-----------------< Devloped by : AMMAR ELHAMDO   >----------------')
+                print ('----------------< Devloped by: ALABUO GROUP LTD.  >--------------')
                 print ('-----------------------------------------------------------------')
                 print ('Time & Date: {}'.format(datetime.now()))
                 print ('To termainted this script press ENTER')
