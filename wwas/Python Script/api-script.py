@@ -15,8 +15,6 @@
         2) sudo apt-get install chromium-browser             -- (We need to know location install ex: '/usr/local/bin/chromedriver')
         3) install database file on hosting server.          -- (After install this database file, you must change DatabaseUsername, DatabasePassword)
         4) install api, db files on hosting server.          -- (We need domain name to set it in this script.)
-
-        All copyrights for ALABUO GROUP CO. LTD.
 '''
 import requests
 import os, sys, select
@@ -69,7 +67,7 @@ class WWAS:
                 try:
                         # store the URL in url as 
                         # parameter for urlopen
-                        req = urllib.request.Request('https://salepoint.alabuo-tr.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
+                        req = urllib.request.Request('https://YOUR_DOMAIN.com/wwas/api.php?action=requestsMessagesForUser',headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
                         # store the response of URL
                         page = urllib.request.urlopen(req)
                         
@@ -308,7 +306,4 @@ if __name__ == "__main__":
         except Exception as e:
                 print("The script has been stopped in {}, with error. ERROR: {}".format(datetime.now(), e))
 
-
-
-	
 
